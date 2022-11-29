@@ -40,7 +40,7 @@ const SellerSignUp = () => {
               className="w-full px-4 py-3 rounded-md border border-accent bg-white text-accent focus:outline-secondary"
             />
           </div>
-          <button className="block w-full p-3 text-center rounded-md text-white bg-green-500 border font-semibold hover:border-green-500 hover:bg-white hover:text-green-500 transition duration-150 ease-out hover:ease-in">
+          <button className="block w-full p-3 text-center rounded-md text-white bg-accent border font-semibold hover:border-accent hover:bg-white hover:text-accent transition duration-150 ease-out hover:ease-in">
             Sign Up
           </button>
         </form>
@@ -58,7 +58,7 @@ const SellerSignUp = () => {
         <div className="flex justify-center space-x-4">
           <button
             aria-label="Log in with Google"
-            className="w-full px-4 py-3 rounded-md border border-green-500 bg-white text-green-500 font-semibold hover:border-green-500 hover:bg-green-500 hover:text-white transition duration-150 ease-out hover:ease-in"
+            className="w-full px-4 py-3 rounded-md border border-accent bg-white text-accent font-semibold hover:border-accent hover:bg-accent hover:text-white transition duration-150 ease-out hover:ease-in"
           >
             CONTINUE WITH GOOGLE
           </button>

@@ -15,6 +15,11 @@ const NavBar = () => {
         </Link>
       </li>
       <li>
+        <Link className="font-semibold" to="/logIn">
+          Log In
+        </Link>
+      </li>
+      <li>
         <Link className="font-semibold" to="/signUp">
           Sign Up
         </Link>

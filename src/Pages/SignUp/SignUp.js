@@ -55,7 +55,7 @@ const SignUp = () => {
           <Link to="/signUp/seller">
             <button
               onClick={sellerText}
-              className="btn btn-primary btn-sm bg-green-500 text-white border-0"
+              className="btn btn-primary btn-sm bg-accent text-white border-0"
             >
               Seller
             </button>
