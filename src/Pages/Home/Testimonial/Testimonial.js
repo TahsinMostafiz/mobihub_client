@@ -32,7 +32,7 @@ const Testimonial = () => {
     },
   ];
   return (
-    <div className=" mt-10 mb-40 bg-neutral p-10">
+    <div className=" mt-10 mb-20 bg-neutral p-10">
       <div className="text-center mb-10">
         <h2 className="text-3xl lg:text-5xl text-accent font-bold mb-3">
           What they say <span className="text-primary">about us</span>
