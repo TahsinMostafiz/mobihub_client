@@ -15,8 +15,8 @@ const NavBar = () => {
         </Link>
       </li>
       <li>
-        <Link className="font-semibold" to="/appointment">
-          Appointment
+        <Link className="font-semibold" to="/signUp">
+          Sign Up
         </Link>
       </li>
     </>
