@@ -46,7 +46,7 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+          fetch(`https://mobihub-server-nine.vercel.app/category/${params.id}`),
       },
     ],
   },

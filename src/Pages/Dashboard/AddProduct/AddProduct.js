@@ -41,7 +41,7 @@ const AddProduct = () => {
           };
 
           // save doctor information to database
-          fetch("http://localhost:5000/products", {
+          fetch("https://mobihub-server-nine.vercel.app/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",

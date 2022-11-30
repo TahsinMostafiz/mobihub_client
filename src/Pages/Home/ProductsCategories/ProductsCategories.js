@@ -7,7 +7,9 @@ const ProductsCategories = () => {
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/categories");
+      const res = await fetch(
+        "https://mobihub-server-nine.vercel.app/categories"
+      );
       const data = await res.json();
       return data;
     },
