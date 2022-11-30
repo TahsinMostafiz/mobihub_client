@@ -28,6 +28,14 @@ const DashBoardLayout = () => {
                 </Link>
               </li>
               <li>
+                <Link
+                  className="text-white font-semibold"
+                  to="/dashboard/allUsers"
+                >
+                  All Users
+                </Link>
+              </li>
+              <li>
                 <Link className="text-white font-semibold">Add Product</Link>
               </li>
             </>
