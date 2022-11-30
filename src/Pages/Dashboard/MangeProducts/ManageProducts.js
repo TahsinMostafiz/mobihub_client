@@ -1,8 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import ConfirmationModal from "../../../Shared/ConfirmationModal/ConfirmationModal";
 import Loading from "../../../Shared/Loading/Loading";
 
 const ManageProducts = () => {
+  const [deletingProduct, setDeletingProduct] = useState(null);
+  const deleteCancel = () => {
+    setDeletingProduct(null);
+  };
   const {
     data: products = [],
     isLoading,
@@ -23,6 +29,23 @@ const ManageProducts = () => {
       }
     },
   });
+  //Delete Products Function
+  const handleDeleteProduct = (product) => {
+    fetch(`http://localhost:5000/products/${product._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          toast.success(`Product ${product.name} deleted successfully`);
+          refetch();
+        }
+      });
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -59,7 +82,7 @@ const ManageProducts = () => {
                 </td>
                 <th>
                   <label
-                    // onClick={() => setDeletingDoctor(doctor)}
+                    onClick={() => setDeletingProduct(product)}
                     htmlFor="confirmation-modal"
                     className="btn btn-error btn-xs text-white"
                   >
@@ -71,16 +94,16 @@ const ManageProducts = () => {
           </tbody>
         </table>
       </div>
-      {/* {deletingDoctor && (
+      {deletingProduct && (
         <ConfirmationModal
           title={`Are you sure you want to delete`}
-          message={`If you delete ${deletingDoctor.name}, it will not be recovered`}
-          handleDeleteDoctor={handleDeleteDoctor}
-          doctor={deletingDoctor}
+          message={`If you delete ${deletingProduct.name}, it will not be recovered`}
+          handleDeleteProduct={handleDeleteProduct}
+          product={deletingProduct}
           confirmButton="Delete"
           deleteCancel={deleteCancel}
         ></ConfirmationModal>
-      )} */}
+      )}
     </div>
   );
 };

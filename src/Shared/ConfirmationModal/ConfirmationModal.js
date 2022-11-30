@@ -4,8 +4,8 @@ const ConfirmationModal = ({
   title,
   message,
   deleteCancel,
-  handleDeleteDoctor,
-  doctor,
+  handleDeleteProduct,
+  product,
   confirmButton,
 }) => {
   return (
@@ -17,7 +17,7 @@ const ConfirmationModal = ({
           <p className="py-4">{message}</p>
           <div className="modal-action">
             <label
-              onClick={() => handleDeleteDoctor(doctor)}
+              onClick={() => handleDeleteProduct(product)}
               htmlFor="confirmation-modal"
               className="btn btn-error text-white"
             >
