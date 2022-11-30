@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
 import toast from "react-hot-toast";
 
 const SellerSignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUser } = useContext(AuthContext);
+  const [signUpError, setSignUpError] = useState("");
   const {
     register,
     handleSubmit,
@@ -19,10 +20,18 @@ const SellerSignUp = () => {
         const user = result.user;
         console.log(user);
         toast.success("User create successfully");
+        const userInfo = {
+          displayName: data.sellerName,
+        };
+        console.log(userInfo);
+        updateUser(userInfo)
+          .then(() => {})
+          .catch((err) => console.log(err));
       })
       .catch((errors) => {
         const errorMessage = errors.message;
         toast.error(errorMessage);
+        setSignUpError(errorMessage);
       });
   };
   return (
@@ -88,6 +97,7 @@ const SellerSignUp = () => {
           <button className="block w-full p-3 text-center rounded-md text-white bg-accent border font-semibold hover:border-accent hover:bg-white hover:text-accent transition duration-150 ease-out hover:ease-in">
             Sign Up
           </button>
+          {signUpError && <p className="text-orange-700 py-2">{signUpError}</p>}
         </form>
         <p className="text-xs text-center sm:px-6 text-gray-400">
           Already have an account?{" "}

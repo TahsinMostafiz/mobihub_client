@@ -1,24 +1,24 @@
 import React, { useContext } from "react";
-//import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Link, useNavigate, useRouteError } from "react-router-dom";
-//import { AuthContext } from "../../Context/AuthProvider";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const ErrorPage = () => {
   const error = useRouteError();
-  // const { logOut } = useContext(AuthContext);
-  // const navigate = useNavigate();
-  //   const handleLogOut = () => {
-  //     logOut()
-  //       .then(() => {
-  //         toast.success("Sign Out Successfully");
-  //         navigate("/login");
-  //       })
-  //       .catch((error) => {
-  //         const errorCode = error.code;
-  //         const errorMessage = error.message;
-  //         toast.error(errorCode, errorMessage);
-  //       });
-  //   };
+  const { logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Sign Out Successfully");
+        navigate("/login");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast.error(errorCode, errorMessage);
+      });
+  };
   return (
     <section className="flex items-center h-full sm:p-16 text-accent">
       <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8 space-y-8 text-center sm:max-w-md">
@@ -59,8 +59,8 @@ const ErrorPage = () => {
         </Link>
         <span>Or</span>
         <button
-          //onClick={handleLogOut}
-          className="btn btn-secondary text-white rounded-lg"
+          onClick={handleLogOut}
+          className="btn btn-primary text-white rounded-lg"
         >
           Log Out
         </button>
