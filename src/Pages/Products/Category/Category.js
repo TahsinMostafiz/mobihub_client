@@ -4,9 +4,8 @@ import BookingModal from "../BookingModal/BookingModal";
 import PhonesCard from "../PhonesCard/PhonesCard";
 
 const Category = () => {
-  const [booking, setBooking] = useState(null);
+  const [buyerBooking, setBuyerBooking] = useState(null);
   const phones = useLoaderData();
-  console.log(phones);
   return (
     <section className="py-16 ">
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 w-full justify-center ">
@@ -14,11 +13,16 @@ const Category = () => {
           <PhonesCard
             key={phone?._id}
             phone={phone}
-            setBooking={setBooking}
+            setBuyerBooking={setBuyerBooking}
           ></PhonesCard>
         ))}
       </div>
-      {booking && <BookingModal booking={booking}></BookingModal>}
+      {buyerBooking && (
+        <BookingModal
+          buyerBooking={buyerBooking}
+          setBuyerBooking={setBuyerBooking}
+        ></BookingModal>
+      )}
     </section>
   );
 };

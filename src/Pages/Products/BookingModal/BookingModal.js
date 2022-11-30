@@ -1,9 +1,29 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
+import { format } from "date-fns";
 
-const BookingModal = ({ booking }) => {
+const BookingModal = ({ buyerBooking, setBuyerBooking }) => {
   const { user } = useContext(AuthContext);
-  const handleBooking = () => {};
+  const { title, resalePrice } = buyerBooking;
+  const date = format(new Date(), "PP");
+  const handleBooking = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const price = resalePrice;
+    const bName = form.bName.value;
+    const phone = form.phone.value;
+    const email = form.email.value;
+    const booking = {
+      bookingDate: date,
+      name: title,
+      buyerName: bName,
+      phone,
+      email,
+      price,
+    };
+    console.log(booking);
+    setBuyerBooking(null);
+  };
   return (
     <>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -15,11 +35,12 @@ const BookingModal = ({ booking }) => {
           >
             ✕
           </label>
-          <h3 className="text-lg font-bold">{booking.title}</h3>
+          <h3 className="text-lg font-bold">{title}</h3>
           <form onSubmit={handleBooking} className="grid grid-cols-1 gap-5">
             <input
               type="text"
-              defaultValue={`Price : ${booking.resalePrice}`}
+              name="price"
+              defaultValue={`Price : ${resalePrice}`}
               disabled
               className="input font-semibold input-bordered w-full"
             />
@@ -27,7 +48,7 @@ const BookingModal = ({ booking }) => {
               type="text"
               defaultValue={user?.displayName}
               disabled
-              name="pName"
+              name="bName"
               className="input font-semibold input-bordered w-full focus:outline-secondary"
             />
             <input

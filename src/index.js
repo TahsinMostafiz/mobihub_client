@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import AuthProvider from "./Context/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import TimeAgo from "javascript-time-ago";
+import "react-day-picker/dist/style.css";
 
 import en from "javascript-time-ago/locale/en.json";
 TimeAgo.addDefaultLocale(en);

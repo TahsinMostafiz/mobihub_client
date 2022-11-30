@@ -1,9 +1,8 @@
 import React from "react";
-import ReactTimeAgo from "react-time-ago";
 
-const PhonesCard = ({ phone, setBooking }) => {
-  const { title, img, location, price, resalePrice, yearsOfUse } = phone;
-  const date = new Date();
+const PhonesCard = ({ phone, setBuyerBooking }) => {
+  const { title, img, location, price, resalePrice, yearsOfUse, postedDate } =
+    phone;
   return (
     <div className="max-w-xs p-6 rounded-md shadow-md bg-neutral text-accent">
       <img
@@ -17,7 +16,7 @@ const PhonesCard = ({ phone, setBooking }) => {
             {location}
           </span>
           <p className="font-medium text-gray-500 text-xs">
-            <ReactTimeAgo date={date} locale="en-US" />
+            Post : {postedDate}
           </p>
         </div>
         <h2 className="block text-xl font-medium text-accent">{title}</h2>
@@ -30,7 +29,7 @@ const PhonesCard = ({ phone, setBooking }) => {
         <span className="text-secondary line-through">${price}</span>
       </p>
       <label
-        onClick={() => setBooking(phone)}
+        onClick={() => setBuyerBooking(phone)}
         htmlFor="booking-modal"
         className="btn btn-primary btn-sm text-white border-primary mt-3"
       >
