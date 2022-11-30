@@ -1,10 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import loginBanner from "../../assets/login/login-banner.jpg";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Context/AuthProvider";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const imageUrl = windowWidth >= 650 ? loginBanner : "none";
+  const { logIn } = useContext(AuthContext);
+  const [logInError, setLogInError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  // logIn
+  const handleLogin = (data) => {
+    setLogInError("");
+    logIn(data.email, data.password)
+      .then(() => {
+        // Signed in
+        toast.success("User Login Successfully");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setLogInError(errorMessage);
+        toast.error(errorCode, errorMessage);
+      });
+  };
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -35,34 +61,52 @@ const Login = () => {
       <div className="bg-neutral py-10">
         <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-white text-accent shadow-lg mx-auto my-10">
           <h1 className="text-2xl font-bold text-center">Login</h1>
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
             <div className="space-y-1 text-sm">
               <label htmlFor="email" className="block text-gray-400">
                 Email
               </label>
               <input
+                {...register("email", {
+                  required: "Please provide your registered email address",
+                })}
                 type="text"
                 name="email"
                 id="email"
                 className="w-full px-4 py-3 rounded-md border border-accent bg-white text-accent focus:outline-secondary"
               />
+              {errors.email && (
+                <p className="text-orange-700">{errors.email?.message}</p>
+              )}
             </div>
             <div className="space-y-1 text-sm">
               <label htmlFor="password" className="block text-gray-400">
                 Password
               </label>
               <input
+                {...register("password", {
+                  required: true,
+                })}
                 type="password"
                 name="password"
                 id="password"
                 className="w-full px-4 py-3 rounded-md border border-accent bg-white text-accent focus:outline-secondary"
               />
+              {errors.password && (
+                <p role="alert" className="text-orange-700">
+                  {errors.password?.message}
+                </p>
+              )}
+              {logInError && <p className="text-orange-700">{logInError}</p>}
 
               <div className="flex justify-end text-xs text-gray-400 py-2">
                 <Link>Forgot Password?</Link>
               </div>
             </div>
-            <button className="block w-full p-3 text-center rounded-md text-white bg-accent border font-semibold hover:border-accent hover:bg-white hover:text-accent transition duration-150 ease-out hover:ease-in">
+            <button
+              type="submit"
+              className="block w-full p-3 text-center rounded-md text-white bg-accent border font-semibold hover:border-accent hover:bg-white hover:text-accent transition duration-150 ease-out hover:ease-in"
+            >
               LOG IN
             </button>
           </form>
