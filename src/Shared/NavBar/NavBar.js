@@ -25,8 +25,8 @@ const NavBar = () => {
         </Link>
       </li>
       <li>
-        <Link className="font-semibold" to="/about">
-          About
+        <Link className="font-semibold" to="/blog">
+          Blog
         </Link>
       </li>
       {user?.uid ? (
