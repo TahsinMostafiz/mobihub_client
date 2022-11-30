@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
+import toast from "react-hot-toast";
 
 const AddProduct = () => {
   const {
@@ -10,20 +11,52 @@ const AddProduct = () => {
   } = useForm();
 
   const date = format(new Date(), "PP");
+  const imageHostKey = process.env.REACT_APP_imgbb_key;
 
   const handleAddProduct = (data) => {
-    const product = {
-      category_id: data.category,
-      title: data.name,
-      img: "https://i.ibb.co/tDFPzxs/Apple-i-Phone-13-Pro-Max1-TB.jpg",
-      price: data.oPrice,
-      resalePrice: data.rPrice,
-      yearsOfUse: data.used,
-      location: data.location,
-      postedDate: date,
-      condition: data.condition,
-      phone: data.number,
-    };
+    const image = data.img[0];
+    const formData = new FormData();
+
+    formData.append("image", image);
+    //save image to image bb
+    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        if (imgData.success) {
+          const product = {
+            category_id: data.category,
+            title: data.name,
+            img: imgData.data.url,
+            price: data.oPrice,
+            resalePrice: data.rPrice,
+            yearsOfUse: data.used,
+            location: data.location,
+            postedDate: date,
+            condition: data.condition,
+            phone: data.number,
+          };
+
+          // save doctor information to database
+          fetch("http://localhost:5000/products", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(product),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              console.log(result);
+              toast.success(`${data.name} is added successfully`);
+              //navigate("/dashboard/manageProducts");
+            });
+        }
+      });
   };
   return (
     <div className="w-full max-w-lg p-8 space-y-3 rounded-xl bg-white text-accent shadow-lg mx-auto my-10">
