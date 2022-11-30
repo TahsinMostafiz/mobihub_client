@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Context/AuthProvider";
 import toast from "react-hot-toast";
 import { GoogleAuthProvider } from "firebase/auth";
+import useToken from "../../Hooks/useToken";
 
 const googleProvider = new GoogleAuthProvider();
 const Login = () => {
@@ -12,9 +13,16 @@ const Login = () => {
   const imageUrl = windowWidth >= 650 ? loginBanner : "none";
   const { logIn, providerLogin } = useContext(AuthContext);
   const [logInError, setLogInError] = useState("");
+  const [loginUserEmail, setLoginUserEmail] = useState("");
+  const [token] = useToken(loginUserEmail);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+
+  if (token) {
+    navigate(from, { replace: true });
+  }
+
   const {
     register,
     handleSubmit,
@@ -28,7 +36,7 @@ const Login = () => {
       .then(() => {
         // Signed in
         toast.success("User Login Successfully");
-        navigate(from, { replace: true });
+        setLoginUserEmail(data.email);
       })
       .catch((error) => {
         const errorCode = error.code;

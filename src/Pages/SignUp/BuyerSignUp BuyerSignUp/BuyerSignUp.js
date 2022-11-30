@@ -4,14 +4,20 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
+import useToken from "../../../Hooks/useToken";
 
 const googleProvider = new GoogleAuthProvider();
 const BuyerSignUp = () => {
   const { createUser, updateUser, providerLogin } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
+  const [createdUserEmail, setCreatedUserEmail] = useState("");
+  const [token] = useToken(createdUserEmail);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+  if (token) {
+    navigate(from, { replace: true });
+  }
   const {
     register,
     handleSubmit,
@@ -55,8 +61,7 @@ const BuyerSignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        navigate("/");
+        setCreatedUserEmail(email);
       });
   };
 
