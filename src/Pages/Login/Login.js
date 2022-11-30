@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginBanner from "../../assets/login/login-banner.jpg";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Context/AuthProvider";
@@ -10,6 +10,9 @@ const Login = () => {
   const imageUrl = windowWidth >= 650 ? loginBanner : "none";
   const { logIn } = useContext(AuthContext);
   const [logInError, setLogInError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -23,6 +26,7 @@ const Login = () => {
       .then(() => {
         // Signed in
         toast.success("User Login Successfully");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;
