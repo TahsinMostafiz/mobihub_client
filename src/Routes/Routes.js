@@ -10,6 +10,7 @@ import BuyerSignUp from "../Pages/SignUp/BuyerSignUp BuyerSignUp/BuyerSignUp";
 import SellerSignUp from "../Pages/SignUp/SellerSignUp/SellerSignUp";
 import SignUp from "../Pages/SignUp/SignUp";
 import ErrorPage from "../Shared/ErrorPage/ErrorPage";
+import AdminRoutes from "./AdminRoutes/AdminRoutes";
 import PrivetRoute from "./PrivetRoute/PrivetRoute";
 
 const router = createBrowserRouter([
@@ -78,7 +79,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/allUsers",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <AdminRoutes>
+            <AllUsers></AllUsers>
+          </AdminRoutes>
+        ),
       },
     ],
   },
