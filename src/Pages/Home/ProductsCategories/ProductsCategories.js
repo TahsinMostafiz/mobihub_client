@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import Loading from "../../../Shared/Loading/Loading";
 import CategoriesCard from "./CategoriesCard";
 
 const ProductsCategories = () => {
-  const { data: categories = [] } = useQuery({
+  const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
       const res = await fetch("http://localhost:5000/categories");
@@ -11,6 +12,9 @@ const ProductsCategories = () => {
       return data;
     },
   });
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className=" md:flex gap-5 py-16 ">
       <div className="p-5 text-center">
