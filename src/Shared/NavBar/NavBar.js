@@ -32,7 +32,7 @@ const NavBar = () => {
       {user?.uid ? (
         <>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/shop">Shop</Link>
           </li>
           <li onClick={handleLogOut}>
             <button className="btn  bg-white border-white text-primary hover:text-white hover:bg-primary hover:border-white border-2 rounded-lg">
@@ -87,7 +87,7 @@ const NavBar = () => {
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
       <label
-        htmlFor="dashboard-drawer"
+        htmlFor="shop-drawer"
         tabIndex={2}
         className="btn btn-ghost lg:hidden"
       >
