@@ -2,10 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import { Toaster } from "react-hot-toast";
 import reportWebVitals from "./reportWebVitals";
 import AuthProvider from "./Context/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import TimeAgo from "javascript-time-ago";
 
+import en from "javascript-time-ago/locale/en.json";
+TimeAgo.addDefaultLocale(en);
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,6 +17,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <App />
+        <Toaster />
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>

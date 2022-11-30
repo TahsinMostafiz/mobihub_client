@@ -6,7 +6,8 @@
         "price": "179,900",
         "resalePrice": "110,499",
         "yearsOfUse": "6 months",
-        "location": "Dhaka"
+        "location": "Dhaka",
+        "sellerName" : "Tahsin"
     },
     {
         "category_id": "01",
@@ -15,7 +16,8 @@
         "price": "69900",
         "resalePrice": "31699",
         "yearsOfUse": "7 months",
-        "location": "Dhaka"
+        "location": "Dhaka",
+        "sellerName" : "Tahsin"
     },
     {
         "category_id": "01",
@@ -24,7 +26,8 @@
         "price": "129900",
         "resalePrice": "62999",
         "yearsOfUse": "7 months",
-        "location": "Dhaka"
+        "location": "Dhaka",
+        "sellerName" : "Tahsin"
     },
     {
         "category_id": "02",
@@ -33,7 +36,8 @@
         "price": "74999",
         "resalePrice": "30999",
         "yearsOfUse": "1 year",
-        "location": "Khulna"
+        "location": "Khulna",
+        "sellerName" : "Tahsin"
     },
     {
         "category_id": "02",
@@ -42,7 +46,8 @@
         "price": "85999",
         "resalePrice": "44999",
         "yearsOfUse": "7 months",
-        "location": "Barishal"
+        "location": "Barishal",
+        "sellerName" : "Tahsin"
     },
     {
         "category_id": "02",
@@ -51,7 +56,8 @@
         "price": "33,999",
         "resalePrice": "18899",
         "yearsOfUse": "9 months",
-        "location": "Dhaka"
+        "location": "Dhaka",
+        "sellerName" : "Tahsin"
     },
     {
         "category_id": "03",
@@ -60,7 +66,8 @@
         "price": "71999",
         "resalePrice": "52499",
         "yearsOfUse": "2 months",
-        "location": "Dhaka"
+        "location": "Dhaka",
+        "sellerName" : "Tahsin"
     },
     {
         "category_id": "03",
@@ -69,7 +76,8 @@
         "price": "64999",
         "resalePrice": "34499",
         "yearsOfUse": "5 months",
-        "location": "Chittagong"
+        "location": "Chittagong",
+        "sellerName" : "Tahsin"
     },
     {
         "category_id": "03",
@@ -78,6 +86,7 @@
         "price": "25000",
         "resalePrice": "12099",
         "yearsOfUse": "7 months",
-        "location": "Chittagong"
+        "location": "Chittagong",
+        "sellerName" : "Tahsin"
     }
 ]

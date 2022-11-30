@@ -1,7 +1,9 @@
 import React from "react";
+import ReactTimeAgo from "react-time-ago";
 
-const PhonesCard = ({ phone }) => {
+const PhonesCard = ({ phone, setBooking }) => {
   const { title, img, location, price, resalePrice, yearsOfUse } = phone;
+  const date = new Date();
   return (
     <div className="max-w-xs p-6 rounded-md shadow-md bg-neutral text-accent">
       <img
@@ -10,9 +12,14 @@ const PhonesCard = ({ phone }) => {
         className="object-cover object-center w-full rounded-md h-72 "
       />
       <div className="mt-2 mb-1">
-        <span className="block text-xs font-medium tracking-widest  text-gray-500">
-          {location}
-        </span>
+        <div className="flex justify-between">
+          <span className="block text-xs font-medium tracking-widest  text-gray-500">
+            {location}
+          </span>
+          <p className="font-medium text-gray-500 text-xs">
+            <ReactTimeAgo date={date} locale="en-US" />
+          </p>
+        </div>
         <h2 className="block text-xl font-medium text-accent">{title}</h2>
       </div>
       <p className="block text-base font-medium tracking-wide  text-gray-500 mb-2">
@@ -22,9 +29,13 @@ const PhonesCard = ({ phone }) => {
         <span className="text-primary text-xl">${resalePrice}</span>{" "}
         <span className="text-secondary line-through">${price}</span>
       </p>
-      <button className="btn btn-primary btn-sm text-white border-primary mt-3">
+      <label
+        onClick={() => setBooking(phone)}
+        htmlFor="booking-modal"
+        className="btn btn-primary btn-sm text-white border-primary mt-3"
+      >
         Book now
-      </button>
+      </label>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import BuyerSignUp from "../Pages/SignUp/BuyerSignUp BuyerSignUp/BuyerSignUp";
 import SellerSignUp from "../Pages/SignUp/SellerSignUp/SellerSignUp";
 import SignUp from "../Pages/SignUp/SignUp";
 import ErrorPage from "../Shared/ErrorPage/ErrorPage";
+import PrivetRoute from "./PrivetRoute/PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/category/:id",
-        element: <Category></Category>,
+        element: (
+          <PrivetRoute>
+            <Category></Category>
+          </PrivetRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/category/${params.id}`),
       },
