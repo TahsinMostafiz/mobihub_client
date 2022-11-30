@@ -1,12 +1,17 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
 import toast from "react-hot-toast";
+import { GoogleAuthProvider } from "firebase/auth";
 
+const googleProvider = new GoogleAuthProvider();
 const SellerSignUp = () => {
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser, updateUser, providerLogin } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -32,6 +37,18 @@ const SellerSignUp = () => {
         const errorMessage = errors.message;
         toast.error(errorMessage);
         setSignUpError(errorMessage);
+      });
+  };
+
+  //Google Login
+  const handleGoogleLogIn = () => {
+    providerLogin(googleProvider)
+      .then(() => {
+        toast.success("User Log in Successfully");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        toast.error(err.message);
       });
   };
   return (
@@ -112,6 +129,7 @@ const SellerSignUp = () => {
         </div>
         <div className="flex justify-center space-x-4">
           <button
+            onClick={handleGoogleLogIn}
             aria-label="Log in with Google"
             className="w-full px-4 py-3 rounded-md border border-accent bg-white text-accent font-semibold hover:border-accent hover:bg-accent hover:text-white transition duration-150 ease-out hover:ease-in"
           >

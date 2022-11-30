@@ -4,11 +4,13 @@ import loginBanner from "../../assets/login/login-banner.jpg";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Context/AuthProvider";
 import toast from "react-hot-toast";
+import { GoogleAuthProvider } from "firebase/auth";
 
+const googleProvider = new GoogleAuthProvider();
 const Login = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const imageUrl = windowWidth >= 650 ? loginBanner : "none";
-  const { logIn } = useContext(AuthContext);
+  const { logIn, providerLogin } = useContext(AuthContext);
   const [logInError, setLogInError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,6 +35,18 @@ const Login = () => {
         const errorMessage = error.message;
         setLogInError(errorMessage);
         toast.error(errorCode, errorMessage);
+      });
+  };
+
+  //Google Login
+  const handleGoogleLogIn = () => {
+    providerLogin(googleProvider)
+      .then(() => {
+        toast.success("User Log in Successfully");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        toast.error(err.message);
       });
   };
 
@@ -127,6 +141,7 @@ const Login = () => {
           </div>
           <div className="flex justify-center space-x-4">
             <button
+              onClick={handleGoogleLogIn}
               aria-label="Log in with Google"
               className="w-full px-4 py-3 rounded-md border border-accent bg-white text-accent"
             >

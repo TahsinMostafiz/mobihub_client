@@ -1,12 +1,17 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
 
+const googleProvider = new GoogleAuthProvider();
 const BuyerSignUp = () => {
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser, updateUser, providerLogin } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -32,6 +37,18 @@ const BuyerSignUp = () => {
         const errorMessage = errors.message;
         toast.error(errorMessage);
         setSignUpError(errorMessage);
+      });
+  };
+
+  //Google Login
+  const handleGoogleLogIn = () => {
+    providerLogin(googleProvider)
+      .then(() => {
+        toast.success("User Log in Successfully");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        toast.error(err.message);
       });
   };
   return (
@@ -112,6 +129,7 @@ const BuyerSignUp = () => {
         </div>
         <div className="flex justify-center space-x-4">
           <button
+            onClick={handleGoogleLogIn}
             aria-label="Log in with Google"
             className="w-full px-4 py-3 rounded-md border border-primary bg-white text-primary font-semibold hover:border-primary hover:bg-primary hover:text-white transition duration-150 ease-out hover:ease-in"
           >
