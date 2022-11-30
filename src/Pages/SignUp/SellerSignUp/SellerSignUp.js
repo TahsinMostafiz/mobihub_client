@@ -4,14 +4,20 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
 import toast from "react-hot-toast";
 import { GoogleAuthProvider } from "firebase/auth";
+import useToken from "../../../Hooks/useToken";
 
 const googleProvider = new GoogleAuthProvider();
 const SellerSignUp = () => {
   const { createUser, updateUser, providerLogin } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
+  const [createdUserEmail, setCreatedUserEmail] = useState("");
+  const [token] = useToken(createdUserEmail);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+  if (token) {
+    navigate(from, { replace: true });
+  }
   const {
     register,
     handleSubmit,
@@ -26,17 +32,37 @@ const SellerSignUp = () => {
         console.log(user);
         toast.success("User create successfully");
         const userInfo = {
-          displayName: data.sellerName,
+          displayName: data.name,
         };
         console.log(userInfo);
         updateUser(userInfo)
-          .then(() => {})
+          .then(() => {
+            saveUser(data.name, data.email);
+          })
           .catch((err) => console.log(err));
       })
       .catch((errors) => {
         const errorMessage = errors.message;
         toast.error(errorMessage);
         setSignUpError(errorMessage);
+      });
+  };
+  const saveUser = (name, email) => {
+    const user = {
+      name: name,
+      email: email,
+      role: "Seller",
+    };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCreatedUserEmail(email);
       });
   };
 
@@ -57,14 +83,14 @@ const SellerSignUp = () => {
         <h2 className="text-2xl font-bold text-center">Sign Up</h2>
         <form onSubmit={handleSubmit(handleSellerSignUp)} className="space-y-6">
           <div className="space-y-1 text-sm">
-            <label htmlFor="sellerName" className="block text-gray-400">
+            <label htmlFor="name" className="block text-gray-400">
               Name
             </label>
             <input
-              {...register("sellerName", { required: "Name is required" })}
+              {...register("name", { required: "Name is required" })}
               type="text"
-              name="sellerName"
-              id="sellerName"
+              name="name"
+              id="name"
               className="w-full px-4 py-3 rounded-md border border-accent bg-white text-accent focus:outline-secondary"
             />
             {errors.sellerName && (

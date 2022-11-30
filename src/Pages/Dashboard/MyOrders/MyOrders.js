@@ -1,10 +1,25 @@
 import { format } from "date-fns";
 import React, { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
+
+import { Link } from "react-router-dom";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const { data: bookings = [] } = useQuery({
+    queryKey: ["bookings", user?.email],
+    queryFn: async () => {
+      const res = await fetch(url, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      const data = await res.json();
+      return data;
+    },
+  });
   return (
     <div>
       <div>
@@ -25,29 +40,30 @@ const MyOrders = () => {
               </tr>
             </thead>
             <tbody>
-              {/* {appointments.map((appointment, i) => (
-                <tr key={i}>
+              {bookings.map((booking, i) => (
+                <tr key={booking._id}>
                   <th>{i + 1}</th>
-                  <td>{appointment.treatment}</td>
-                  <td>{appointment.patientName}</td>
-                  <td>{appointment.appointmentDate}</td>
-                  <td>{appointment.slot}</td>
-                  <td>
-                    {appointment.price && !appointment.paid && (
-                      <Link to={`/dashboard/payment/${appointment._id}`}>
+                  <td>{booking.name}</td>
+                  <td>{booking.buyerName}</td>
+                  <td>{booking.bookingDate}</td>
+                  <td>${booking.price}</td>
+                  <td>{booking.price}</td>
+                  {/* <td>
+                    {booking.price && !booking.paid && (
+                      <Link to={`/dashboard/payment/${booking._id}`}>
                         <button className="btn btn-error btn-xs text-white">
                           Pay
                         </button>
                       </Link>
                     )}
-                    {appointment.price && appointment.paid && (
+                    {booking.price && booking.paid && (
                       <button className="btn btn-success btn-xs text-white">
                         Paid
                       </button>
                     )}
-                  </td>
+                  </td> */}
                 </tr>
-              ))} */}
+              ))}
             </tbody>
           </table>
         </div>

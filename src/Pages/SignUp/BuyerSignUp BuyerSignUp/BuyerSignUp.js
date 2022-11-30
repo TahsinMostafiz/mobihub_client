@@ -19,24 +19,44 @@ const BuyerSignUp = () => {
   } = useForm();
 
   const handleBuyerSignUp = (data) => {
-    console.log(data);
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
         toast.success("User create successfully");
         const userInfo = {
-          displayName: data.buyerName,
+          displayName: data.name,
         };
-        console.log(userInfo);
         updateUser(userInfo)
-          .then(() => {})
+          .then(() => {
+            saveUser(data.name, data.email);
+          })
           .catch((err) => console.log(err));
       })
       .catch((errors) => {
         const errorMessage = errors.message;
         toast.error(errorMessage);
         setSignUpError(errorMessage);
+      });
+  };
+
+  const saveUser = (name, email) => {
+    const user = {
+      name: name,
+      email: email,
+      role: "Buyer",
+    };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        navigate("/");
       });
   };
 
@@ -57,14 +77,14 @@ const BuyerSignUp = () => {
         <h2 className="text-2xl font-bold text-center">Sign Up</h2>
         <form onSubmit={handleSubmit(handleBuyerSignUp)} className="space-y-6">
           <div className="space-y-1 text-sm">
-            <label htmlFor="buyerName" className="block text-gray-400">
+            <label htmlFor="name" className="block text-gray-400">
               Name
             </label>
             <input
-              {...register("buyerName", { required: "Name is required" })}
+              {...register("name", { required: "Name is required" })}
               type="text"
-              name="buyerName"
-              id="buyerName"
+              name="name"
+              id="name"
               className="w-full px-4 py-3 rounded-md border border-accent bg-white text-accent focus:outline-secondary"
             />
             {errors.buyerName && (
