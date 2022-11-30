@@ -1,0 +1,83 @@
+[
+    {
+        "category_id": "01",
+        "title": "Apple iPhone 13 Pro Max 1TB",
+        "img": "https://i.ibb.co/tDFPzxs/Apple-i-Phone-13-Pro-Max1-TB.jpg",
+        "price": "179,900",
+        "resalePrice": "110,499",
+        "yearsOfUse": "6 months",
+        "location": "Dhaka"
+    },
+    {
+        "category_id": "01",
+        "title": "Apple iPhone 12 Mini 64GB",
+        "img": "https://i.ibb.co/svXJxc4/Apple-i-Phone-12-Mini-64-GB.jpg",
+        "price": "69900",
+        "resalePrice": "31699",
+        "yearsOfUse": "7 months",
+        "location": "Dhaka"
+    },
+    {
+        "category_id": "01",
+        "title": "Apple iPhone 12 Pro 256GB",
+        "img": "https://i.ibb.co/9ggRykK/Apple-i-Phone-12-Pro-256-GB.jpg",
+        "price": "129900",
+        "resalePrice": "62999",
+        "yearsOfUse": "7 months",
+        "location": "Dhaka"
+    },
+    {
+        "category_id": "02",
+        "title": "Samsung Galaxy S21 FE 5G 8/128GB",
+        "img": "https://i.ibb.co/2SbVPNk/Samsung-Galaxy-S21-FE-5-G-8-128-GB.jpg",
+        "price": "74999",
+        "resalePrice": "30999",
+        "yearsOfUse": "1 year",
+        "location": "Khulna"
+    },
+    {
+        "category_id": "02",
+        "title": "Samsung Galaxy S22 5G 8/128GB",
+        "img": "https://i.ibb.co/YZPL0wP/Samsung-Galaxy-S22-5-G-8-128-GB.jpg",
+        "price": "85999",
+        "resalePrice": "44999",
+        "yearsOfUse": "7 months",
+        "location": "Barishal"
+    },
+    {
+        "category_id": "02",
+        "title": "Samsung Galaxy A33 5G 8/128GB",
+        "img": "https://i.ibb.co/DLfHLnF/Samsung-Galaxy-A33-5-G-8-128-GB.jpg",
+        "price": "33,999",
+        "resalePrice": "18899",
+        "yearsOfUse": "9 months",
+        "location": "Dhaka"
+    },
+    {
+        "category_id": "03",
+        "title": "OnePlus 10 Pro 5G 12/256GB",
+        "img": "https://i.ibb.co/p4B44PQ/One-Plus-10-Pro-5-G-12-256-GB.jpg",
+        "price": "71999",
+        "resalePrice": "52499",
+        "yearsOfUse": "2 months",
+        "location": "Dhaka"
+    },
+    {
+        "category_id": "03",
+        "title": "OnePlus 9 Pro 5G 8/128GB",
+        "img": "https://i.ibb.co/BBhVgSv/One-Plus-9-Pro-5-G-8-256-GB.jpg",
+        "price": "64999",
+        "resalePrice": "34499",
+        "yearsOfUse": "5 months",
+        "location": "Chittagong"
+    },
+    {
+        "category_id": "03",
+        "title": "OnePlus Nord N200 5G 4/64GB",
+        "img": "https://i.ibb.co/YTDJmjM/One-Plus-Nord-N200-5-G-4-64-GB.jpg",
+        "price": "25000",
+        "resalePrice": "12099",
+        "yearsOfUse": "7 months",
+        "location": "Chittagong"
+    }
+]
